@@ -1,0 +1,31 @@
+#include <iostream>
+#include <climits>
+using namespace std;
+bool isBSTUtil(int arr[], int idx, int min_val, int max_val, int N) {
+    if (idx > N)
+        return true;
+    if (arr[idx] <= min_val || arr[idx] >= max_val)
+        return false;
+    return isBSTUtil(arr, 2 * idx, min_val, arr[idx], N) &&
+           isBSTUtil(arr, 2 * idx + 1, arr[idx], max_val, N);
+}
+bool isBST(int arr[], int N) {
+    return isBSTUtil(arr, 1, INT_MIN, INT_MAX, N);
+}
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int N;
+        cin >> N;
+        int nodes[N + 1];
+        for (int i = 1; i <= N; ++i) {
+            cin >> nodes[i];
+        }
+        if (isBST(nodes, N))
+            cout << "True\n";
+        else
+            cout << "False\n";
+    }
+    return 0;
+}

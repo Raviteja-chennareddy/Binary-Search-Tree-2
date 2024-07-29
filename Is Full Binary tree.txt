@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+
+struct TreeNode
+{
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+};
+
+void insert(TreeNode*& root, int value)
+{
+    if (root == nullptr)
+    {
+       
+        root = new TreeNode(value);
+        return;
+    }
+   
+    if (value < root->val) {
+        insert(root->left, value);
+    }
+    else
+    {
+        insert(root->right, value);
+    }
+}
+
+bool isFullBinaryTree(TreeNode* root) {
+    if (root == nullptr)
+       return true;
+   
+   
+    if (root->left == nullptr && root->right == nullptr) {
+        return true;
+    }
+   
+   
+    if (root->left != nullptr && root->right != nullptr)
+    {
+        return isFullBinaryTree(root->left) && isFullBinaryTree(root->right);
+    }
+   
+   
+    return false;
+}
+
+int main()
+{
+    int T;
+    cin >> T;
+   
+    for (int t = 0; t < T; ++t)
+    {
+        int N;
+        cin >> N;
+       
+        TreeNode* root = nullptr;
+       
+        for (int i = 0; i < N; ++i)
+        {
+            int value;
+            cin >> value;
+            insert(root, value);
+        }
+       
+        if (isFullBinaryTree(root))
+        {
+            cout << "True";
+        }
+        else
+        {
+            cout << "False";
+        }
+       
+        cout << endl;
+       
+   
+    }
+   
+    return 0;
+}
+
